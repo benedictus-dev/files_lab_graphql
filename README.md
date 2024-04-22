@@ -26,8 +26,8 @@ Handling multiple file uploads simultaneously from images to documents
 
 ```curl -X POST \
    -F query="mutation { uploadFiles(files: [\"file1\", \"file2\"]) }" \
-   -F file1=@/`#{your_file_path}`/test.txt \
-   -F file2=@/`#{your_file_path}`/map.png \
+   -F file1=@/`#{your_file_path}`/file_name.txt \
+   -F file2=@/`#{your_file_path}`/file_name.png \
    http://localhost:4000/api
 ```
 
