@@ -86,4 +86,4 @@ To start your Phoenix server:
 - **Start Phoenix endpoint with** `mix phx.server`
 
 
-![Logo](/static/images/logo.png)
+![Logo](/static/images/logo.svg)
