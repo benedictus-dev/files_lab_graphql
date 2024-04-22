@@ -1,4 +1,5 @@
 defmodule FilesLabGraphql.Application do
+  alias FilesLabGraphql.Media.FileAgent
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -15,6 +16,7 @@ defmodule FilesLabGraphql.Application do
       {Phoenix.PubSub, name: FilesLabGraphql.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: FilesLabGraphql.Finch},
+      {FileAgent,name: FileAgent},
       # Start a worker by calling: FilesLabGraphql.Worker.start_link(arg)
       # {FilesLabGraphql.Worker, arg},
       # Start to serve requests, typically the last entry

@@ -55,7 +55,7 @@ config :tailwind,
 
 # Oban Configuration
 config :files_lab_graphql, Oban,
-  queues: [default: 10,background: 5],
+  queues: [default: 10, background: 5],
   repo: FilesLabGraphql.Repo,
   plugins: [{Oban.Plugins.Pruner, max_age: 300}]
 
