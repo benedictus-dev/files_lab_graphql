@@ -86,4 +86,5 @@ To start your Phoenix server:
 - **Start Phoenix endpoint with** `mix phx.server`
 
 
-![Logo](/priv/static/images/logo.svg)
+<img src="/priv/static/images/logo.svg" alt="Alt text" title="Optional title" width="200" height="200"/>
+
