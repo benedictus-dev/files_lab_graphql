@@ -2,22 +2,51 @@
 
 Welcome to FileLab-GraphQL! This API provides a robust solution for handling multiple file uploads simultaneously. Built using GraphQL, it allows for the seamless uploading of various file types, from images to documents, while managing the complexity of concurrent operations with Oban-powered background jobs.
 
-# GraphQL API Documentation
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Mutations](#mutations)
+1. [Demo](#demo)
+   - [Prerequisites](#prerequisites)
+   - [Curl Command](#curl-command)
+   - [Explanation](#explanation)
+2. [Api Documentation](#api-documentation)
+3. [Mutations](#mutations)
    - [upload_files](#upload_files)
-3. [Subscriptions](#subscriptions)
+4. [Subscriptions](#subscriptions)
    - [file_processed](#file_processed)
-4. [Additional Information](#additional-information)
+5. [Additional Information](#additional-information)
    - [Schema Definition](#schema-definition)
    - [Error Handling](#error-handling)
    - [Security Considerations](#security-considerations)
-5. [Getting started](#getting-tarted)
+6. [Getting started](#getting-tarted)
 
-## Overview
+### Demo
+
+Handling multiple file uploads simultaneously from images to documents
+
+```curl -X POST \
+   -F query="mutation { uploadFiles(files: [\"file1\", \"file2\"]) }" \
+   -F file1=@/`#{your_file_path}`/test.txt \
+   -F file2=@/`#{your_file_path}`/map.png \
+   http://localhost:4000/api
+```
+
+#### Prerequisites
+
+- The server should be running on `http://localhost:4000/api`.
+- Replace `#{your_file_path}` with the actual path to the files you wish to upload.
+
+#### Curl Command
+
+````bash
+curl -X POST \
+  -F query="mutation { uploadFiles(files: [\"file1\", \"file2\"]) }" \
+  -F file1=@/#{your_file_path}/test.txt \
+  -F file2=@/#{your_file_path}/map.png \
+  http://localhost:4000/api 
+````
+
+## Api Documentation
 
 This document provides details about the GraphQL API endpoints, including available mutations and subscriptions, the required input parameters, and the structure of the expected responses.
 
@@ -39,7 +68,7 @@ mutation {
     ...
   }
 }
-```
+````
 
 ### Expected Response
 
@@ -81,10 +110,9 @@ Receive updates when a file is processed, with updates broadcasted to all subscr
 ### Getting Started
 
 To start your Phoenix server:
+
 - **Install dependencies with mix** `deps.get`
 - **Create and migrate your database with** `mix ecto.setup`
 - **Start Phoenix endpoint with** `mix phx.server`
 
-
 <img src="/priv/static/images/logo.svg" alt="Alt text" title="Optional title" width="200" height="200"/>
-
