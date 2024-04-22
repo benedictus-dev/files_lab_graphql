@@ -1,5 +1,4 @@
 defmodule FilesLabGraphql.Media.File do
-  alias FilesLabGraphql.Account.User
   use Ecto.Schema
   import Ecto.Changeset
 

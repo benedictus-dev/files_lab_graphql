@@ -1,4 +1,4 @@
-defmodule FilesLabGraphql.Media.FileAgent do
+defmodule FilesLabGraphql.FileAgent do
   use Agent
 
   def start_link(_opts) do

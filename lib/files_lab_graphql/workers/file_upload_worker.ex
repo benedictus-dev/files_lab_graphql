@@ -1,28 +1,28 @@
-defmodule FilesLabGraphql.Media.Workers.FileUploadWorker do
+defmodule FilesLabGraphql.Workers.FileUploadWorker do
   use Oban.Worker, max_attempts: 3, queue: :background
   require Logger
 
   alias FilesLabGraphql.Media.File, as: Media
-  # create a worker to process it file
-  # move from temp to static
-  # persist file
+
   @impl Oban.Worker
   def perform(%Oban.Job{args: args}) do
-
-    Logger.info("Starting execution")
-
-    temp_path = args["path"]
-    file_metadata = args["metadata"]
-
-    process_file(temp_path, file_metadata)
-
-    Logger.info("Finished execution")
-    :ok
+    with {:ok, temp_path} <- Map.fetch(args, "path"),
+         {:ok, file_metadata} <- Map.fetch(args, "metadata") do
+      # If both temp_path and file_metadata are successfully fetched
+      Logger.info("Starting execution")
+      process_file(temp_path, file_metadata)
+      Logger.info("Finished execution")
+      :ok
+    else
+      :error ->
+        # Log an error and return an error tuple if any fetch fails
+        Logger.error("Missing necessary arguments in job")
+        {:error, :invalid_arguments}
+    end
   end
 
   defp process_file(temp_path, file_metadata) do
     # copy files temp dir file to priv/static/uploads where they can be served
-    # would it make sense to return a list of url paths
     :timer.sleep(50000)
 
     dest =
@@ -34,10 +34,9 @@ defmodule FilesLabGraphql.Media.Workers.FileUploadWorker do
       ])
 
     File.cp(temp_path, dest)
-    |> IO.inspect(label: "Rate")
 
     # Cleanup file after processing
-    File.rm(temp_path) |> IO.inspect(label: "File removal")
+    File.rm(temp_path)
 
     path = "/uploads/#{Path.basename(dest)}" |> IO.inspect(label: "URl path")
 

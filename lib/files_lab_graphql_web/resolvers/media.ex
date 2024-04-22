@@ -1,6 +1,6 @@
 defmodule FilesLabGraphqlWeb.Resolvers.Media do
-  alias FilesLabGraphql.Media.Workers.FileUploadWorker
-  alias FilesLabGraphql.Media.FileAgent
+  alias FilesLabGraphql.Workers.FileUploadWorker
+  alias FilesLabGraphql.FileAgent
   alias FileNameGenerator
 
   def multi_file(_, %{files: files}, _) do
@@ -19,7 +19,7 @@ defmodule FilesLabGraphqlWeb.Resolvers.Media do
       |> FileUploadWorker.new()
       |> Oban.insert()
     end)
-    
+
 
     # # IO.inspect(files, label: "Streams")
     {:ok, ["", ""]}

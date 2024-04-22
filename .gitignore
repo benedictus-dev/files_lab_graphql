@@ -28,7 +28,7 @@ files_lab_graphql-*.tar
 # Ignore assets that are produced by build tools.
 /priv/static/assets/
 
-# Ignore uploas that are produced by local insertion.
+# Ignore uploads that are produced by local insertion.
 /priv/static/uploads/
 
 # Ignore digested assets cache.

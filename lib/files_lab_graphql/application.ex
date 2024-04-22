@@ -1,5 +1,5 @@
 defmodule FilesLabGraphql.Application do
-  alias FilesLabGraphql.Media.FileAgent
+  alias FilesLabGraphql.FileAgent
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
