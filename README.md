@@ -15,6 +15,7 @@ Welcome to FileLab-GraphQL! This API provides a robust solution for handling mul
    - [Schema Definition](#schema-definition)
    - [Error Handling](#error-handling)
    - [Security Considerations](#security-considerations)
+5. [Getting started](#getting-tarted)
 
 ## Overview
 
@@ -44,7 +45,7 @@ mutation {
 
 ```{
   "data": {
-    "upload_files": ["file1-upload-success", "file2-upload-success"]
+    "upload_files": ["file1_name", "file2_name"]
   }
 }
 ```
@@ -76,3 +77,10 @@ Receive updates when a file is processed, with updates broadcasted to all subscr
   }
 }
 ```
+
+### Getting Started
+
+To start your Phoenix server:
+    Install dependencies with mix `deps.get`
+    Create and migrate your database with `mix ecto.setup`
+    Start Phoenix endpoint with `mix phx.server`
