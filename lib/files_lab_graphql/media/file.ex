@@ -8,9 +8,6 @@ defmodule FilesLabGraphql.Media.File do
     field :filename, :string
     field :content_type, :string
     field :path, :string
-
-    # belongs_to :user, User
-
     timestamps()
   end
 

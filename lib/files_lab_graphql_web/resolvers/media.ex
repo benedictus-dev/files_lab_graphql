@@ -1,5 +1,6 @@
 defmodule FilesLabGraphqlWeb.Resolvers.Media do
   alias FilesLabGraphql.Workers.FileUploadWorker
+  alias FilesLabGraphql.Media
   alias FilesLabGraphql.FileAgent
   alias FileNameGenerator
 
@@ -10,29 +11,36 @@ defmodule FilesLabGraphqlWeb.Resolvers.Media do
       Plug.Upload.give_away(upload, get_file_agent())
     end)
 
-    files
-    |> Enum.each(fn %Plug.Upload{filename: filename, path: path, content_type: content_type} ->
-      %{
-        "metadata" => %{filename: filename, content_type: content_type},
-        "path" => path
-      }
-      |> FileUploadWorker.new()
-      |> Oban.insert()
-    end)
+    response =
+      files
+      |> Enum.map(fn %Plug.Upload{filename: filename, path: path, content_type: content_type} ->
+        %{
+          "metadata" => %{filename: filename, content_type: content_type},
+          "path" => path
+        }
+        |> FileUploadWorker.new()
+        |> Oban.insert()
+        |> case do
+          {:ok, _job} ->
+            filename
 
+          {:error, _reason} ->
+            "error"
+        end
+      end)
 
-    # # IO.inspect(files, label: "Streams")
-    {:ok, ["", ""]}
+    {:ok, response}
   end
 
   defp get_file_agent() do
-    case Process.whereis(FileAgent) do
-      nil ->
-        {:ok, pid} = FileAgent.start_link([])
-        pid
+    Process.whereis(FileAgent)
+    # case Process.whereis(FileAgent) do
+    #   nil ->
+    #     {:ok, pid} = FileAgent.start_link([])
+    #     pid
 
-      pid ->
-        pid
-    end
+    #   pid ->
+    #     pid
+    # end
   end
 end
