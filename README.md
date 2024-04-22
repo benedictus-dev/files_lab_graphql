@@ -86,4 +86,4 @@ To start your Phoenix server:
 - **Start Phoenix endpoint with** `mix phx.server`
 
 
-![Logo](/files_lab_graphql/priv/static/images/)
+![Logo](/files_lab_graphql/priv/static/images/logo.svg)
