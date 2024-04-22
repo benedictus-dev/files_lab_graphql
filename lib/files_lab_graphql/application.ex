@@ -20,7 +20,8 @@ defmodule FilesLabGraphql.Application do
       # Start a worker by calling: FilesLabGraphql.Worker.start_link(arg)
       # {FilesLabGraphql.Worker, arg},
       # Start to serve requests, typically the last entry
-      FilesLabGraphqlWeb.Endpoint
+      FilesLabGraphqlWeb.Endpoint,
+      {Absinthe.Subscription,FilesLabGraphqlWeb.Endpoint}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

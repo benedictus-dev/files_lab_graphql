@@ -53,6 +53,8 @@ defmodule FilesLabGraphql.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:absinthe, "~> 1.7"},
       {:absinthe_plug, "~> 1.5"},
+      {:phoenix_pubsub, "~> 2.0"},
+      {:absinthe_phoenix, "~> 2.0"},
       {:oban, "~> 2.17"}
     ]
   end

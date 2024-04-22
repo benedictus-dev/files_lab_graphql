@@ -23,9 +23,11 @@ defmodule FilesLabGraphqlWeb.Router do
   scope "/api" do
     pipe_through :api
 
-    forward "/graphiql", Absinthe.Plug.GraphiQL,schema: FilesLabGraphqlWeb.Schema
-    forward "/", Absinthe.Plug, schema: FilesLabGraphqlWeb.Schema
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+    schema: FilesLabGraphqlWeb.Schema,
+    socket: FilesLabGraphqlWeb.UserSocket
 
+    forward "/", Absinthe.Plug, schema: FilesLabGraphqlWeb.Schema
   end
 
   # Other scopes may use custom stacks.

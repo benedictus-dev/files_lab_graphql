@@ -7,13 +7,7 @@ defmodule FilesLabGraphqlWeb.Schema do
   import_types Absinthe.Plug.Types
 
   query do
-    # field :metadata,list_of(:file) do
-    #   resolve &Resolvers.Media.list_files/3
-    # end
-
     field :user, :user do
-      # arg :id, non_null(:id)
-      resolve &Resolvers.Account.find_user/3
     end
   end
 
@@ -24,4 +18,11 @@ defmodule FilesLabGraphqlWeb.Schema do
     end
   end
 
+  subscription do
+    field :file_processed, :file do
+      config(fn _args, _ ->
+        {:ok, topic: "*"}
+      end)
+    end
+  end
 end
