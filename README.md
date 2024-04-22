@@ -81,6 +81,6 @@ Receive updates when a file is processed, with updates broadcasted to all subscr
 ### Getting Started
 
 To start your Phoenix server:
-    Install dependencies with mix `deps.get`
-    Create and migrate your database with `mix ecto.setup`
-    Start Phoenix endpoint with `mix phx.server`
+- **Install dependencies with mix** `deps.get`
+- **Create and migrate your database with** `mix ecto.setup`
+- **Start Phoenix endpoint with** `mix phx.server`
