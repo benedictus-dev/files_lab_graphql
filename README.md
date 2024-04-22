@@ -7,8 +7,9 @@ Welcome to FileLab-GraphQL! This API provides a robust solution for handling mul
 
 1. [Demo](#demo)
    - [Prerequisites](#prerequisites)
-   - [Curl Command](#curl-command)
+   - [Execute Upload](#execute-upload)
    - [Explanation](#explanation)
+6. [Getting started](#getting-tarted)
 2. [Api Documentation](#api-documentation)
 3. [Mutations](#mutations)
    - [upload_files](#upload_files)
@@ -18,31 +19,24 @@ Welcome to FileLab-GraphQL! This API provides a robust solution for handling mul
    - [Schema Definition](#schema-definition)
    - [Error Handling](#error-handling)
    - [Security Considerations](#security-considerations)
-6. [Getting started](#getting-tarted)
 
 ### Demo
 
 Handling multiple file uploads simultaneously from images to documents
 
-```curl -X POST \
-   -F query="mutation { uploadFiles(files: [\"file1\", \"file2\"]) }" \
-   -F file1=@/`#{your_file_path}`/file_name.txt \
-   -F file2=@/`#{your_file_path}`/file_name.png \
-   http://localhost:4000/api
-```
 
 #### Prerequisites
 
 - The server should be running on `http://localhost:4000/api`.
 - Replace `#{your_file_path}` with the actual path to the files you wish to upload.
 
-#### Curl Command
+#### Execute Upload
 
 ````bash
 curl -X POST \
   -F query="mutation { uploadFiles(files: [\"file1\", \"file2\"]) }" \
-  -F file1=@/#{your_file_path}/test.txt \
-  -F file2=@/#{your_file_path}/map.png \
+  -F file1=@/#{your_file_path}/file_name.txt \
+  -F file2=@/#{your_file_path}/file_name.png \
   http://localhost:4000/api 
 ````
 
