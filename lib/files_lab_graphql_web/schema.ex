@@ -12,6 +12,7 @@ defmodule FilesLabGraphqlWeb.Schema do
   end
 
   mutation do
+    @desc "Uploads multiple files and queues them."
     field :upload_files, list_of(:string) do
       arg :files, non_null(list_of(non_null(:upload)))
       resolve &Resolvers.Media.multi_file/3
@@ -19,6 +20,7 @@ defmodule FilesLabGraphqlWeb.Schema do
   end
 
   subscription do
+    @desc "Subscribes to updates on file."
     field :file_processed, :file do
       config(fn _args, _ ->
         {:ok, topic: "*"}
