@@ -61,9 +61,9 @@ curl -X POST \
 
 - **Uploaded files are deleted from the temporary directory after the request ends, causing Oban to encounter an {:error, :enoent} error when trying to access them.**
 
-  - **Impelement a global Agent (FileAgent) for File Handling that  starts in our application supervision tree**
-  - **Using `Plug.Upload.give_away/3` we assign ownership of the given upload file to another process(FileAgent)**
- - **Files are retrieved from a temporary directory managed by our File Agent  to a more permanent location (priv/static/uploads) where they are available for further use or distribution.** 
+    - **Impelement a global Agent (FileAgent) for File Handling that  starts in our application supervision tree**
+    - **Using `Plug.Upload.give_away/3` we assign ownership of the given upload file to another process(FileAgent)**
+    - **Files are retrieved from a temporary directory managed by our File Agent  to a more permanent location (priv/static/uploads) where they are available for further use or distribution.** 
 
 ## Features to watch out For
 
