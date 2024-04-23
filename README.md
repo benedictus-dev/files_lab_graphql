@@ -67,7 +67,7 @@ curl -X POST \
 
 ## Worker
 
--**Oban worker responsible for processing uploaded files. It fetches file paths and metadata from job arguments, processes each file by copying it to a permanent directory, and cleans up the temporary storage.**
+- **Oban worker responsible for processing uploaded files. It fetches file paths and metadata from job arguments, processes each file by copying it to a permanent directory, and cleans up the temporary storage.**
 **Upon successful processing, it publishes an update using GraphQL subscriptions**
 <img src="/priv/static/images/manager5.png" alt="worker example" title="worker"/>
 
