@@ -1,8 +1,6 @@
 defmodule FilesLabGraphql.Media do
   alias FilesLabGraphql.Media.File
   alias FilesLabGraphql.Repo
-  alias alias FilesLabGraphqlWeb.Endpoint
-  import Ecto.Query
 
   def list_files do
     Repo.all(File)

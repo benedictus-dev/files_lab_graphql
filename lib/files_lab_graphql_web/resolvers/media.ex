@@ -1,6 +1,5 @@
 defmodule FilesLabGraphqlWeb.Resolvers.Media do
   alias FilesLabGraphql.Workers.FileUploadWorker
-  alias FilesLabGraphql.Media
   alias FilesLabGraphql.FileAgent
   alias FileNameGenerator
 
