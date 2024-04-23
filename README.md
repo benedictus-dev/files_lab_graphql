@@ -2,20 +2,21 @@
 
 Welcome to FileLab-GraphQL! This API provides a robust solution for handling multiple file uploads simultaneously. Built using GraphQL, it allows for the seamless uploading of various file types, from images to documents, while managing the complexity of concurrent operations with Oban-powered background jobs.
 
-
 ## Table of Contents
 
 1. [Demo](#demo)
    - [Prerequisites](#prerequisites)
    - [Execute Upload](#execute-upload)
-   - [Explanation](#explanation)
-6. [Getting started](#getting-tarted)
-2. [Api Documentation](#api-documentation)
-3. [Mutations](#mutations)
+2. [Implementation Features](#implementation-features)
+   - [Decisions](#decisions)
+   - [Features](#features)
+3. [Getting started](#getting-tarted)
+4. [Api Documentation](#api-documentation)
+5. [Mutations](#mutations)
    - [upload_files](#upload_files)
-4. [Subscriptions](#subscriptions)
+6. [Subscriptions](#subscriptions)
    - [file_processed](#file_processed)
-5. [Additional Information](#additional-information)
+7. [Additional Information](#additional-information)
    - [Schema Definition](#schema-definition)
    - [Error Handling](#error-handling)
    - [Security Considerations](#security-considerations)
@@ -24,7 +25,6 @@ Welcome to FileLab-GraphQL! This API provides a robust solution for handling mul
 
 Handling multiple file uploads simultaneously from images to documents
 
-
 #### Prerequisites
 
 - The server should be running on `http://localhost:4000/api`.
@@ -32,13 +32,54 @@ Handling multiple file uploads simultaneously from images to documents
 
 #### Execute Upload
 
-````bash
+```bash
 curl -X POST \
   -F query="mutation { uploadFiles(files: [\"file1\", \"file2\"]) }" \
   -F file1=@/#{your_file_path}/file_name.txt \
   -F file2=@/#{your_file_path}/file_name.png \
-  http://localhost:4000/api 
+  http://localhost:4000/api
+```
+
+## Features
+
+### Decisions
+
+- **Creating Individual Jobs for Each File** : Each file upload creates a separate job. This means if you upload 5 files, 5 independent jobs are enqueued in Oban.
+  Multiple workers can process multiple files simultaneously.
+  If one job fails it doesn't affect the processing of other files. Failed jobs can be retried without impacting others.
+
+  ```elixir
+    def multi_ file_, offiles: files}, - do
+  files
+  |> Enum. each(fn upload ->
+  ```
+
+# Give away the file ownership to ensure it's not deleted
+
+Plug.Upload-give_away (upload, get_file_agent ( )) end)
+response =
+files
+%{
+|> Enum.map(fn &Plug.Upload{filename: filename, path: path, content_type: content_type} -›
+"metadata" →
+%{filename: filename, content_type: content_type},
+"path" => path
+|> FileUploadWorker.new()
+|> Oban.insert()
+case
+do
+{ok, \_job}
+filename
+{:error, \_reason}
+"error"
+end end)
+{:ok, response} end
+
 ````
+
+- **Creating a Single Job to Handle All Files**: Though not implemented, a single job is created regardless of the number of files uploaded. This job is responsible for processing all the files listed in its arguments.
+
+- \*\*
 
 ## Api Documentation
 
@@ -58,9 +99,9 @@ This mutation enables the simultaneous upload of multiple files. Each file is pr
 
 ```graphql
 mutation {
-  upload_files(files: [file1, file2]) {
-    ...
-  }
+upload_files(files: [file1, file2]) {
+  ...
+}
 }
 ````
 
