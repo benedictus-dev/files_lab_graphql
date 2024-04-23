@@ -48,7 +48,7 @@ curl -X POST \
   Multiple workers can process multiple files simultaneously.
   If one job fails it doesn't affect the processing of other files. Failed jobs can be retried without impacting others.
 
-<img src="/priv/static/images/individual_job_processing.png" alt="individual job example" title="individual job example" width="500" height="500"/>
+<img src="/priv/static/images/individual_job_processing.png" alt="individual job example" title="individual job example"/>
 
 - **Creating a Single Job to Handle All Files**: Though not implemented, a single job is created regardless of the number of files uploaded. This job is responsible for processing all the files listed in its arguments.
 
