@@ -48,34 +48,7 @@ curl -X POST \
   Multiple workers can process multiple files simultaneously.
   If one job fails it doesn't affect the processing of other files. Failed jobs can be retried without impacting others.
 
-  ```elixir
-    def multi_ file_, offiles: files}, - do
-  files
-  |> Enum. each(fn upload ->
-  ```
-
-# Give away the file ownership to ensure it's not deleted
-
-Plug.Upload-give_away (upload, get_file_agent ( )) end)
-response =
-files
-%{
-|> Enum.map(fn &Plug.Upload{filename: filename, path: path, content_type: content_type} -›
-"metadata" →
-%{filename: filename, content_type: content_type},
-"path" => path
-|> FileUploadWorker.new()
-|> Oban.insert()
-case
-do
-{ok, \_job}
-filename
-{:error, \_reason}
-"error"
-end end)
-{:ok, response} end
-
-````
+<img src="/priv/static/images/individual_job_processing.png" alt="Alt text" title="Optional title" width="700" height="700"/>
 
 - **Creating a Single Job to Handle All Files**: Though not implemented, a single job is created regardless of the number of files uploaded. This job is responsible for processing all the files listed in its arguments.
 
@@ -99,11 +72,11 @@ This mutation enables the simultaneous upload of multiple files. Each file is pr
 
 ```graphql
 mutation {
-upload_files(files: [file1, file2]) {
-  ...
+  upload_files(files: [file1, file2]) {
+    ...
+  }
 }
-}
-````
+```
 
 ### Expected Response
 
