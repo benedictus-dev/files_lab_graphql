@@ -15,10 +15,6 @@ Welcome to FileLab-GraphQL! This API provides a robust solution for handling mul
    - [upload_files](#upload_files)
 6. [Subscriptions](#subscriptions)
    - [file_processed](#file_processed)
-7. [Additional Information](#additional-information)
-   - [Schema Definition](#schema-definition)
-   - [Error Handling](#error-handling)
-   - [Security Considerations](#security-considerations)
 
 ### Demo
 
@@ -61,8 +57,14 @@ curl -X POST \
 - **Uploaded files are deleted from the temporary directory after the request ends, causing Oban to encounter an `{:error, :enoent} ` error when trying to access them.**
 
   - **Implement a global Agent (FileAgent) for File Handling that starts in our application supervision tree**
+    <img src="/priv/static/images/manager1.png" alt="file agent" title="file agent"/>
+
     <img src="/priv/static/images/manager2.png" alt="file agent" title="file agent"/>
+
   - **Using `Plug.Upload.give_away/3` we assign ownership of the given upload file to another process(FileAgent)**
+    <img src="/priv/static/images/manager3.png" alt="file agent" title="file agent"/>
+    <img src="/priv/static/images/manager4.png" alt="file agent" title="file agent"/>
+    
   - **Files are retrieved from a temporary directory managed by our File Agent to a more permanent location (priv/static/uploads) where they are available for further use or distribution.**
 
 ## Worker
@@ -74,6 +76,8 @@ curl -X POST \
 ## Features to watch out For
 
 Job Tracking with Unique Identifiers
+Error Handling
+Security Fix
 
 ## Api Documentation
 
