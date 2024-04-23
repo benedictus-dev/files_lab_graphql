@@ -7,9 +7,8 @@ Welcome to FileLab-GraphQL! This API provides a robust solution for handling mul
 1. [Demo](#demo)
    - [Prerequisites](#prerequisites)
    - [Execute Upload](#execute-upload)
-2. [Implementation Features](#implementation-features)
-   - [Decisions](#decisions) -[Job Processing](#job-processing) -[File Management](#file-management)
-   - [Features](#features)
+2. [Features](#features)
+   - [Decisions](#decisions) -[Job Processing](#job-processing) -[File Management](#file-management) -[Worker](#worker)
 3. [Getting started](#getting-tarted)
 4. [Api Documentation](#api-documentation)
 5. [Mutations](#mutations)
@@ -61,9 +60,16 @@ curl -X POST \
 
 - **Uploaded files are deleted from the temporary directory after the request ends, causing Oban to encounter an {:error, :enoent} error when trying to access them.**
 
-    - **Impelement a global Agent (FileAgent) for File Handling that  starts in our application supervision tree**
-    - **Using `Plug.Upload.give_away/3` we assign ownership of the given upload file to another process(FileAgent)**
-    - **Files are retrieved from a temporary directory managed by our File Agent  to a more permanent location (priv/static/uploads) where they are available for further use or distribution.** 
+  - **Impelement a global Agent (FileAgent) for File Handling that starts in our application supervision tree**
+    <img src="/priv/static/images/manager2.png" alt="file agent" title="file agent"/>
+  - **Using `Plug.Upload.give_away/3` we assign ownership of the given upload file to another process(FileAgent)**
+  - **Files are retrieved from a temporary directory managed by our File Agent to a more permanent location (priv/static/uploads) where they are available for further use or distribution.**
+
+## Worker
+
+-**Oban worker responsible for processing uploaded files. It fetches file paths and metadata from job arguments, processes each file by copying it to a permanent directory, and cleans up the temporary storage.**
+**Upon successful processing, it publishes an update using GraphQL subscriptions**
+<img src="/priv/static/images/manager5.png" alt="worker example" title="worker"/>
 
 ## Features to watch out For
 
