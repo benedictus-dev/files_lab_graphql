@@ -9,6 +9,8 @@ Welcome to FileLab-GraphQL! This API provides a robust solution for handling mul
    - [Execute Upload](#execute-upload)
 2. [Implementation Features](#implementation-features)
    - [Decisions](#decisions)
+        -[Job Processing](#job-processing)
+        -[File Management](#file-management)
    - [Features](#features)
 3. [Getting started](#getting-tarted)
 4. [Api Documentation](#api-documentation)
@@ -44,18 +46,23 @@ curl -X POST \
 
 ### Decisions
 
-- **Creating Individual Jobs for Each File**:
-    -**Each file upload creates a separate job. This means if you upload 5 files, 5 independent jobs are enqueued in Oban.** 
-    -**Multiple workers can process multiple files simultaneously.** -**If one job fails it doesn't affect the processing of other files. Failed jobs can be retried without impacting others.**
+# Job Processing
+
+-**Creating Individual Jobs for Each File**
+    -**Each file upload creates a separate job, this means if you upload 5 files, 5 independent jobs are enqueued in Oban** 
+    -**Multiple workers can process multiple files simultaneously**
+    -**If one job fails it doesn't affect the processing of other files. Failed jobs can be retried without impacting others**
 
 <img src="/priv/static/images/individual_job_processing.png" alt="individual job example" title="individual job example"/>
 
-- **Creating a Single Job to Handle All Files(Batch Operation)**:
-    -**Though not implemented, a single job is created regardless of the number of files uploaded. This job is responsible for processing all the files listed in its arguments.**
+- **Creating a Single Job to Handle All Files(Batch Operation)**
+    -**Though not implemented, a single job is created regardless of the number of files uploaded. This job is responsible for processing all the files listed in its arguments**
     -**A failure in processing one file can affect the entire job, potentially requiring all files to be reprocessed on retry**
 
-- **File Ownership Management**
-    -**Using `Plug.Upload.give_away/3` To Assign ownership of the given upload file to another process**: 
+## File Ownership Management**
+
+    -**Using `Plug.Upload.give_away/3` To Assign ownership of the given upload file to another process** 
+
     -**Uploaded files are stored in a temporary directory and removed from that directory after the process that requested the file dies.**
 
 - **Global Agent for File Handling**:

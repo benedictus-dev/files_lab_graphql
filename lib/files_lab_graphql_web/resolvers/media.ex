@@ -34,13 +34,5 @@ defmodule FilesLabGraphqlWeb.Resolvers.Media do
 
   defp get_file_agent() do
     Process.whereis(FileAgent)
-    # case Process.whereis(FileAgent) do
-    #   nil ->
-    #     {:ok, pid} = FileAgent.start_link([])
-    #     pid
-
-    #   pid ->
-    #     pid
-    # end
   end
 end
